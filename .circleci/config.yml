@@ -144,8 +144,8 @@ workflows:
   default:
       jobs:
         - pre_build
-        #- build-image:
-        #    requires: [pre_build]
+        - build-image:
+           requires: [pre_build]
         #- eks-cluster-creation:
         #   requires: [build-image]
         #- deploy-phase:
