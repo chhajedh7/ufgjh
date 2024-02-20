@@ -66,7 +66,7 @@ jobs:
            name: run lint
            command: |
              . venv/bin/activate
-               make lint
+             make lint
       - save_cache:
             paths:
               - ./venv
@@ -84,7 +84,7 @@ jobs:
             docker build --tag=capfinal .
             sleep 30s
             docker images ls
-            docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD" docker.io
+            docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
             docker tag capfinal chhajedh7/capfinal:v1
             docker push chhajedh7/capfinal:v1
   eks-cluster-creation:
@@ -145,12 +145,12 @@ workflows:
       jobs:
         - pre_build
         - build-image:
-           requires: [pre_build]
+            requires: [pre_build]
         - eks-cluster-creation:
-           requires: [build-image]
-        #- deploy-phase:
-        #    cluster-name: capfinal
-        #    requires: [eks-cluster-creation]
-        #- sanity:
-        #    cluster-name: capfinal
-        #    requires: [deploy-phase]
+            requires: [build-image]
+        - deploy-phase:
+            cluster-name: capfinal
+            requires: [eks-cluster-creation]
+        - sanity:
+            cluster-name: capfinal
+            requires: [deploy-phase]
