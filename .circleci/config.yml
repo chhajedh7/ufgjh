@@ -146,8 +146,8 @@ workflows:
         - pre_build
         - build-image:
            requires: [pre_build]
-        #- eks-cluster-creation:
-        #   requires: [build-image]
+        - eks-cluster-creation:
+           requires: [build-image]
         #- deploy-phase:
         #    cluster-name: capfinal
         #    requires: [eks-cluster-creation]
